@@ -1,4 +1,5 @@
 import 'package:bloc_ar/bloc/products_bloc.dart';
+import 'package:bloc_ar/repo/ProductsRepo.dart';
 import 'package:bloc_ar/screens/HomeView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'counters/CounterCubit.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
+  runApp(RepositoryProvider(
+    create: (context) => ProductsRepo(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
     return
 
       BlocProvider(
-        create: (context)=>ProductsBloc()..add(ProductsLoadedEvent()),
+        create: (context)=>ProductsBloc(ProductsRepo()),
         child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -48,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       counterCubit.increment();
     });
   }
+
   void _decrementCounter() {
     setState(() {
       counterCubit.decrement();
