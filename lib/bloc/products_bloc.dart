@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../database/ProductDao.dart';
 import '../models/Product.dart';
 import '../repo/ProductsRepo.dart';
 
@@ -16,6 +17,7 @@ class ProductsBloc extends Bloc<ProductsLoadedEvent, ProductsState> {
       try {
         emit(ProductsLoadingState());
         var data = await productRepo.getProduct();
+
         emit(ProductsLoadedState(data));
       } catch (err) {
         emit(ProductsErrorState(err.toString()));

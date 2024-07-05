@@ -4,9 +4,13 @@
 
 import 'dart:convert';
 
-List<Product> productFromJson(String str) => List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+import 'package:bloc_ar/database/table/ProductTable.dart';
 
-String productToJson(List<Product> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<Product> productFromJson(String str) =>
+    List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+
+String productToJson(List<Product> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
   int? id;
@@ -28,32 +32,46 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-    id: json["id"],
-    title: json["title"],
-    price: json["price"]?.toDouble(),
-    description: json["description"],
-    category: categoryValues.map[json["category"]]!,
-    image: json["image"],
-    rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
-  );
+        id: json["id"],
+        title: json["title"],
+        price: json["price"]?.toDouble(),
+        description: json["description"],
+        category: categoryValues.map[json["category"]]!,
+        image: json["image"],
+        rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "price": price,
-    "description": description,
-    "category": categoryValues.reverse[category],
-    "image": image,
-    "rating": rating?.toJson(),
-  };
+        "id": id,
+        "title": title,
+        "price": price,
+        "description": description,
+        "category": categoryValues.reverse[category],
+        "image": image,
+        "rating": rating?.toJson(),
+      };
+
+  Map<String, dynamic> toJsonForTable() => {
+        ProductTable.title: title,
+        ProductTable.description: description,
+        ProductTable.image: image,
+        ProductTable.createdTime: DateTime.now().toIso8601String(),
+      };
+
+  Product copy({
+    int? id,
+    String? title,
+    String? description,
+    String? image,
+  }) =>
+      Product(
+          id: id ?? id,
+          title: title ?? title,
+          description: description ?? description,
+          image: image ?? image);
 }
 
-enum Category {
-  ELECTRONICS,
-  JEWELERY,
-  MEN_S_CLOTHING,
-  WOMEN_S_CLOTHING
-}
+enum Category { ELECTRONICS, JEWELERY, MEN_S_CLOTHING, WOMEN_S_CLOTHING }
 
 final categoryValues = EnumValues({
   "electronics": Category.ELECTRONICS,
@@ -72,14 +90,14 @@ class Rating {
   });
 
   factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-    rate: json["rate"]?.toDouble(),
-    count: json["count"],
-  );
+        rate: json["rate"]?.toDouble(),
+        count: json["count"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "rate": rate,
-    "count": count,
-  };
+        "rate": rate,
+        "count": count,
+      };
 }
 
 class EnumValues<T> {
