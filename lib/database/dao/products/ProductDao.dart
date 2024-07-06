@@ -34,7 +34,7 @@ class ProductDao {
   FutureOr<void> _createDatabase(Database db, _) async{
     return await db.execute('''
         CREATE TABLE ${ProductTable.tableName} (
-          ${ProductTable.id} ${ProductTable.idType},
+          ${ProductTable.id} ${ProductTable.intType},
           ${ProductTable.title} ${ProductTable.textType},
           ${ProductTable.description} ${ProductTable.textType},
           ${ProductTable.image} ${ProductTable.textType},
@@ -71,7 +71,7 @@ class ProductDao {
     final db = await instance.database;
     const orderBy = '${ProductTable.createdTime} DESC';
     final result = await db.query(ProductTable.tableName, orderBy: orderBy);
-    return result.map((json) => Product.fromJson(json)).toList();
+    return result.map((json) => Product.fromJsonForTable(json)).toList();
   }
 
   Future<int> update(Product note) async {

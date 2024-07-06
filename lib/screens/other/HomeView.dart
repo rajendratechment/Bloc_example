@@ -1,6 +1,7 @@
-import 'package:bloc_ar/screens/ProductsView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'ProductsView.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

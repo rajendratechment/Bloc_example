@@ -41,6 +41,13 @@ class Product {
         rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
       );
 
+  factory Product.fromJsonForTable(Map<String, Object?> json) => Product(
+        id: json[ProductTable.id] as int?,
+        title: json[ProductTable.title] as String?,
+        description: json[ProductTable.description] as String,
+        image: json[ProductTable.image] as String,
+      );
+
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
@@ -52,6 +59,7 @@ class Product {
       };
 
   Map<String, dynamic> toJsonForTable() => {
+        ProductTable.id: id,
         ProductTable.title: title,
         ProductTable.description: description,
         ProductTable.image: image,

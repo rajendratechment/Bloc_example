@@ -1,4 +1,4 @@
-import 'package:bloc_ar/database/ProductDao.dart';
+import 'package:bloc_ar/database/dao/products/ProductDao.dart';
 import 'package:bloc_ar/models/Product.dart';
 import 'package:http/http.dart' as http;
 
