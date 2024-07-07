@@ -14,6 +14,7 @@ part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsLoadedEvent, ProductsState> {
   final ProductsRepo productRepo;
+  final ProductDao dao = ProductDao.instance;
 
   ProductsBloc({required this.productRepo}) : super(ProductsLoadingState()) {
     on<ProductsLoadedEvent>((event, emit) async {
@@ -22,9 +23,9 @@ class ProductsBloc extends Bloc<ProductsLoadedEvent, ProductsState> {
         var data = await productRepo.getProduct();
         emit(ProductsLoadedState(data));
       } on SocketException {
-        emit(ProductOffline());
+        emit(ProductOffline(dao.readAll()));
       } on ClientException {
-        emit(ProductOffline());
+        emit(ProductOffline(dao.readAll()));
       } catch (err) {
         print(err.toString());
         emit(ProductsErrorState(err.toString()));

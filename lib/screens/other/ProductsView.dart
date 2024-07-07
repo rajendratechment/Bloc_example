@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/local_db/local_db_cubit.dart';
 import '../../models/Product.dart';
 
 class Productsview extends StatefulWidget {
@@ -18,7 +17,6 @@ class _StatefulWidgetState extends State<Productsview> {
   @override
   void initState() {
     context.read<ProductsBloc>().add(ProductsLoadedEvent());
-    context.read<LocalDbCubit>().getList();
     super.initState();
   }
 
@@ -35,7 +33,6 @@ class _StatefulWidgetState extends State<Productsview> {
                 child: Column(
               children: [
                 CircularProgressIndicator.adaptive(),
-                Text('retrieving  from the server')
               ],
             ));
           } else if (state is ProductsLoadedState) {
@@ -48,26 +45,11 @@ class _StatefulWidgetState extends State<Productsview> {
             );
           } else if (state is ProductOffline) {
             return Center(
-              child: BlocBuilder<LocalDbCubit, LocalDbState>(
-                  builder: (context, state) {
-                if (state is LocalDbLoaded) {
-                  return Center(
-                    child: FutureBuilder<List<Product>>(
-                        future: state.list,
-                        builder: (context, snapshot) {
-                          return _list(snapshot.data);
-                        }),
-                  );
-                } else if (state is LocalDbLoading) {
-                  return const Column(children: [
-                    CircularProgressIndicator.adaptive(),
-                    Text('retrieving  from the local db')
-                  ]);
-                }
-                return const Center(
-                  child: SizedBox(),
-                );
-              }),
+              child: FutureBuilder<List<Product>>(
+                  future: state.product,
+                  builder: (context, snapshot) {
+                    return _list(snapshot.data);
+                  }),
             );
           }
 
@@ -81,7 +63,7 @@ class _StatefulWidgetState extends State<Productsview> {
       itemBuilder: (context, index) {
         return ListTile(
           leading: Row(mainAxisSize: MainAxisSize.min, children: [
-            Text('[${list?[index].id}]${list?[index].image}',
+            Text('[${list?[index].id}]${list?[index].title?.substring(0, 4)}',
                 overflow: TextOverflow.ellipsis)
           ]),
         );

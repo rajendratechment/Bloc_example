@@ -1,4 +1,3 @@
-import 'package:bloc_ar/bloc/local_db/local_db_cubit.dart';
 import 'package:bloc_ar/bloc/products/products_bloc.dart';
 import 'package:bloc_ar/database/dao/products/ProductDao.dart';
 import 'package:bloc_ar/repo/ProductsRepo.dart';
@@ -7,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
-  runApp(RepositoryProvider(
-    create: (context) => ProductsRepo(),
-    child: const MyApp(),
-  ));
+  // runApp(RepositoryProvider(
+  //   create: (context) => ProductsRepo(),
+  //   child: const MyApp(),
+  // ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProductsBloc(productRepo: ProductsRepo()),
         ),
-        BlocProvider(create: (context) => LocalDbCubit(ProductDao.instance))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
