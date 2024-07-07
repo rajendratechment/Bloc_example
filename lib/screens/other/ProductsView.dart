@@ -40,15 +40,7 @@ class _StatefulWidgetState extends State<Productsview> {
             ));
           } else if (state is ProductsLoadedState) {
             return Center(
-              child: ListView.builder(
-                itemCount: state.product.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading:
-                        Text('${state.product[index].title?.substring(0, 3)}'),
-                  );
-                },
-              ),
+              child: _list(state.product),
             );
           } else if (state is ProductsErrorState) {
             return Center(
@@ -63,24 +55,14 @@ class _StatefulWidgetState extends State<Productsview> {
                     child: FutureBuilder<List<Product>>(
                         future: state.list,
                         builder: (context, snapshot) {
-                          return ListView.builder(
-                            itemCount: snapshot.data?.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: Text(
-                                    '${snapshot.data?[index].title?.substring(0, 3)}'),
-                              );
-                            },
-                          );
+                          return _list(snapshot.data);
                         }),
                   );
                 } else if (state is LocalDbLoading) {
-                  return const Column(
-                      children: [
-                        CircularProgressIndicator.adaptive(),
-                        Text('retrieving  from the local db')
-                      ]
-                  );
+                  return const Column(children: [
+                    CircularProgressIndicator.adaptive(),
+                    Text('retrieving  from the local db')
+                  ]);
                 }
                 return const Center(
                   child: SizedBox(),
@@ -91,5 +73,19 @@ class _StatefulWidgetState extends State<Productsview> {
 
           return const SizedBox();
         }));
+  }
+
+  Widget _list(List<Product>? list) {
+    return ListView.builder(
+      itemCount: list?.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: Row(mainAxisSize: MainAxisSize.min, children: [
+            Text('[${list?[index].id}]${list?[index].image}',
+                overflow: TextOverflow.ellipsis)
+          ]),
+        );
+      },
+    );
   }
 }
