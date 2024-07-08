@@ -1,9 +1,10 @@
-import 'package:bloc_ar/bloc/products/products_bloc.dart';
-import 'package:bloc_ar/repo/ProductsRepo.dart';
-import 'package:bloc_ar/screens/other/HomeView.dart';
+import 'package:bloc_ar/modules/product/repo/ProductsRepo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'modules/home/view/HomeView.dart';
+import 'modules/product/bloc/products_bloc.dart';
 
 Future<void> main() async {
   // runApp(RepositoryProvider(

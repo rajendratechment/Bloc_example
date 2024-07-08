@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:bloc_ar/database/table/ProductTable.dart';
-import 'package:bloc_ar/models/Product.dart';
+import 'package:bloc_ar/modules/product/database/table/ProductTable.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../models/Product.dart';
 
 class ProductDao {
   static final ProductDao instance = ProductDao._internal();

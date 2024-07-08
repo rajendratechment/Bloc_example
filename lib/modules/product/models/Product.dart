@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-import 'package:bloc_ar/database/table/ProductTable.dart';
+import '../database/table/ProductTable.dart';
+
 
 List<Product> productFromJson(String str) =>
     List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));

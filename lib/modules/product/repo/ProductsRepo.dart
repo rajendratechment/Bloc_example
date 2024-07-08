@@ -1,6 +1,7 @@
-import 'package:bloc_ar/database/dao/products/ProductDao.dart';
-import 'package:bloc_ar/models/Product.dart';
 import 'package:http/http.dart' as http;
+
+import '../database/ProductDao.dart';
+import '../models/Product.dart';
 
 class ProductsRepo {
   ProductDao dao = ProductDao.instance;

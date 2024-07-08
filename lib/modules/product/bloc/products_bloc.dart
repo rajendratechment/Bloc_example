@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
 
-import '../../database/dao/products/ProductDao.dart';
-import '../../models/Product.dart';
-import '../../repo/ProductsRepo.dart';
+import '../database/ProductDao.dart';
+import '../models/Product.dart';
+import '../repo/ProductsRepo.dart';
 
 part 'products_event.dart';
 
