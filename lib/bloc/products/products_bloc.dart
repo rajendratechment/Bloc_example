@@ -27,7 +27,6 @@ class ProductsBloc extends Bloc<ProductsLoadedEvent, ProductsState> {
       } on ClientException {
         emit(ProductOffline(dao.readAll()));
       } catch (err) {
-        print(err.toString());
         emit(ProductsErrorState(err.toString()));
       }
     });

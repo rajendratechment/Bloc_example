@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc_ar/database/table/ProductTable.dart';
 import 'package:bloc_ar/models/Product.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class ProductDao {
   static final ProductDao instance = ProductDao._internal();
@@ -27,6 +29,7 @@ class ProductDao {
     return await openDatabase(
       path,
       version: 1,
+      password: dotenv.env['VAR_PASSWORD'],
       onCreate: _createDatabase,
     );
   }

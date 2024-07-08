@@ -1,15 +1,16 @@
 import 'package:bloc_ar/bloc/products/products_bloc.dart';
-import 'package:bloc_ar/database/dao/products/ProductDao.dart';
 import 'package:bloc_ar/repo/ProductsRepo.dart';
 import 'package:bloc_ar/screens/other/HomeView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   // runApp(RepositoryProvider(
   //   create: (context) => ProductsRepo(),
   //   child: const MyApp(),
   // ));
+  await dotenv.load(fileName: ".env"); //path to your .env file);
   runApp(const MyApp());
 }
 
