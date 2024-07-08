@@ -6,7 +6,6 @@ import 'package:path/path.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class ProductDao {
   static final ProductDao instance = ProductDao._internal();
 
@@ -30,27 +29,15 @@ class ProductDao {
       path,
       version: 1,
       password: dotenv.env['VAR_PASSWORD'],
-      onCreate: _createDatabase,
+      onCreate: ProductTable.createTable,
     );
-  }
-
-  FutureOr<void> _createDatabase(Database db, _) async{
-    return await db.execute('''
-        CREATE TABLE ${ProductTable.tableName} (
-          ${ProductTable.id} ${ProductTable.intType},
-          ${ProductTable.title} ${ProductTable.textType},
-          ${ProductTable.description} ${ProductTable.textType},
-          ${ProductTable.image} ${ProductTable.textType},
-          ${ProductTable.createdTime} ${ProductTable.textType}
-        )
-      ''');
-
   }
 
   Future<Product> create(Product product) async {
     final db = await instance.database;
 
-    final id = await db.insert(ProductTable.tableName, product.toJsonForTable());
+    final id =
+        await db.insert(ProductTable.tableName, product.toJsonForTable());
     return product.copy(id: id);
   }
 
