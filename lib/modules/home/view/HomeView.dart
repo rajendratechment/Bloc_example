@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../product/view/ProductsView.dart';
+import '../../cardlist/view/CardView.dart';
+
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -13,14 +13,20 @@ class HomeView extends StatelessWidget {
           title: const Text('Home Screen'),
         ),
         body: Center(
-          child: TextButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const Productsview();
-              }));
-            },
-            child: const Text('Product Screen'),
-          ),
-        ));
+            child: Column(
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const CardList();
+                }));
+              },
+              child: const Text('Login View'),
+            ),
+
+
+
+          ],
+        )));
   }
 }

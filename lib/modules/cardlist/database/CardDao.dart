@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:bloc_ar/modules/product/database/table/ProductTable.dart';
+import 'package:bloc_ar/modules/cardlist/database/table/CardTable.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../models/Product.dart';
+import '../models/Card.dart';
 
 class ProductDao {
   static final ProductDao instance = ProductDao._internal();
@@ -30,7 +30,7 @@ class ProductDao {
       path,
       version: 1,
       password: dotenv.env['VAR_PASSWORD'],
-      onCreate: ProductTable.createTable,
+      onCreate: CardTable.createTable,
     );
   }
 
@@ -38,16 +38,16 @@ class ProductDao {
     final db = await instance.database;
 
     final id =
-        await db.insert(ProductTable.tableName, product.toJsonForTable());
+        await db.insert(CardTable.tableName, product.toJsonForTable());
     return product.copy(id: id);
   }
 
   Future<Product> read(int id) async {
     final db = await instance.database;
     final maps = await db.query(
-      ProductTable.tableName,
-      columns: ProductTable.values,
-      where: '${ProductTable.id} = ?',
+      CardTable.tableName,
+      columns: CardTable.values,
+      where: '${CardTable.id} = ?',
       whereArgs: [id],
     );
 
@@ -60,17 +60,17 @@ class ProductDao {
 
   Future<List<Product>> readAll() async {
     final db = await instance.database;
-    const orderBy = '${ProductTable.createdTime} DESC';
-    final result = await db.query(ProductTable.tableName, orderBy: orderBy);
+    const orderBy = '${CardTable.createdTime} DESC';
+    final result = await db.query(CardTable.tableName, orderBy: orderBy);
     return result.map((json) => Product.fromJsonForTable(json)).toList();
   }
 
   Future<int> update(Product note) async {
     final db = await instance.database;
     return db.update(
-      ProductTable.tableName,
+      CardTable.tableName,
       note.toJson(),
-      where: '${ProductTable.id} = ?',
+      where: '${CardTable.id} = ?',
       whereArgs: [note.id],
     );
   }
@@ -78,8 +78,8 @@ class ProductDao {
   Future<int> delete(int id) async {
     final db = await instance.database;
     return await db.delete(
-      ProductTable.tableName,
-      where: '${ProductTable.id} = ?',
+      CardTable.tableName,
+      where: '${CardTable.id} = ?',
       whereArgs: [id],
     );
   }

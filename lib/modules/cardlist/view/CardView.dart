@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/products_bloc.dart';
-import '../models/Product.dart';
+import '../bloc/card_bloc.dart';
+import '../models/Card.dart';
 
 
-class Productsview extends StatefulWidget {
-  const Productsview({super.key});
+class CardList extends StatefulWidget {
+  const CardList({super.key});
 
   @override
-  State<Productsview> createState() => _StatefulWidgetState();
+  State<CardList> createState() => _StatefulWidgetState();
 }
 
-class _StatefulWidgetState extends State<Productsview> {
+class _StatefulWidgetState extends State<CardList> {
   @override
   void initState() {
-    context.read<ProductsBloc>().add(ProductsLoadedEvent());
+    context.read<CardBloc>().add(CardLoadedEvent());
     super.initState();
   }
 
@@ -28,23 +28,23 @@ class _StatefulWidgetState extends State<Productsview> {
           title: const Text('Product Screen'),
         ),
         body:
-            BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
-          if (state is ProductsLoadingState) {
+            BlocBuilder<CardBloc, CardState>(builder: (context, state) {
+          if (state is CardLoadingState) {
             return const Center(
                 child: Column(
               children: [
                 CircularProgressIndicator.adaptive(),
               ],
             ));
-          } else if (state is ProductsLoadedState) {
+          } else if (state is CardLoadedState) {
             return Center(
               child: _list(state.product),
             );
-          } else if (state is ProductsErrorState) {
+          } else if (state is CardErrorState) {
             return Center(
               child: Text(state.errorMessage),
             );
-          } else if (state is ProductOffline) {
+          } else if (state is CardOffline) {
             return Center(
               child: FutureBuilder<List<Product>>(
                   future: state.product,

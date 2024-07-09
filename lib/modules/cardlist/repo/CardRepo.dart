@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
-import '../database/ProductDao.dart';
-import '../models/Product.dart';
+import '../database/CardDao.dart';
+import '../models/Card.dart';
 
 class ProductsRepo {
   ProductDao dao = ProductDao.instance;

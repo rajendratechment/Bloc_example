@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import '../database/table/ProductTable.dart';
+import '../database/table/CardTable.dart';
 
 
 List<Product> productFromJson(String str) =>
@@ -43,10 +43,10 @@ class Product {
       );
 
   factory Product.fromJsonForTable(Map<String, Object?> json) => Product(
-        id: json[ProductTable.id] as int?,
-        title: json[ProductTable.title] as String?,
-        description: json[ProductTable.description] as String,
-        image: json[ProductTable.image] as String,
+        id: json[CardTable.id] as int?,
+        title: json[CardTable.title] as String?,
+        description: json[CardTable.description] as String,
+        image: json[CardTable.image] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,11 +60,11 @@ class Product {
       };
 
   Map<String, dynamic> toJsonForTable() => {
-        ProductTable.id: id,
-        ProductTable.title: title,
-        ProductTable.description: description,
-        ProductTable.image: image,
-        ProductTable.createdTime: DateTime.now().toIso8601String(),
+        CardTable.id: id,
+        CardTable.title: title,
+        CardTable.description: description,
+        CardTable.image: image,
+        CardTable.createdTime: DateTime.now().toIso8601String(),
       };
 
   Product copy({
