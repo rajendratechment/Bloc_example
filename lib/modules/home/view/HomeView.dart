@@ -1,3 +1,4 @@
+import 'package:bloc_ar/modules/login/view/LoginView.dart';
 import 'package:flutter/material.dart';
 
 import '../../cardlist/view/CardView.dart';
@@ -23,6 +24,14 @@ class HomeView extends StatelessWidget {
               },
               child: const Text('Login View'),
             ),
+
+            TextButton(onPressed: (){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const LoginScreen();
+              }));
+
+            }, child: const Text('Login Screen'))
 
 
 

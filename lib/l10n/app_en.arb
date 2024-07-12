@@ -1,0 +1,12 @@
+{
+  "helloWorld": "Hello World!",
+  "simplyDeserveIt":"you simply deserve it",
+  "username":"Username",
+  "password":"Password",
+  "register":"Register",
+  "login":"Login",
+  "troubleLoggingIn":"Trouble logging in",
+  "forgotPassword":"Forgot Password?",
+  "help":"Help"
+
+}

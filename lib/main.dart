@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'modules/cardlist/bloc/card_bloc.dart';
 import 'modules/cardlist/repo/CardRepo.dart';
 import 'modules/home/view/HomeView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env"); //path to your .env file);
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
@@ -34,3 +37,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
